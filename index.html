@@ -62,6 +62,7 @@
             aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 8px;
+            background: #000;
         }
 
         .video-container iframe {
@@ -72,7 +73,7 @@
 
         .fullscreen-btn {
             margin-top: 15px;
-            padding: 12px 25px;
+            padding: 13px 25px;
             background-color: #fff;
             color: #000;
             border: none;
@@ -91,16 +92,6 @@
             transform: scale(0.97);
         }
 
-        footer {
-            text-align: center;
-            padding: 25px 15px;
-            margin-top: 30px;
-            border-top: 1px solid #333;
-            color: #888;
-            font-size: 14px;
-        }
-
-        /* Fullscreen mode */
         .video-container:fullscreen {
             width: 100%;
             height: 100%;
@@ -113,6 +104,15 @@
         .video-container:fullscreen iframe {
             width: 100%;
             height: 100%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 14px;
         }
 
         @media (max-width: 600px) {
@@ -170,6 +170,8 @@
                     src="https://drive.google.com/file/d/1dBu4NtjJLXdq_9NQa82vyR0j8pN0yYhW/preview"
                     allow="autoplay; fullscreen"
                     allowfullscreen
+                    webkitallowfullscreen
+                    mozallowfullscreen
                     loading="lazy">
                 </iframe>
 
@@ -189,15 +191,33 @@
 
     <script>
         function openFullscreen() {
-            const video = document.getElementById("videoContainer");
+            const iframe = document.querySelector(".video-container iframe");
 
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen();
+            // iPhone and iPad Safari
+            if (typeof iframe.webkitEnterFullscreen === "function") {
+                iframe.webkitEnterFullscreen();
+                return;
             }
+
+            // Android and desktop browsers
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen().catch(() => {
+                    showFallback();
+                });
+                return;
+            }
+
+            // Older Safari
+            if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+                return;
+            }
+
+            showFallback();
+        }
+
+        function showFallback() {
+            alert("Please use the fullscreen icon inside the video player.");
         }
     </script>
 
