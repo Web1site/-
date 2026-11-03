@@ -70,6 +70,27 @@
             border: none;
         }
 
+        .fullscreen-btn {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .fullscreen-btn:hover {
+            background-color: #ccc;
+        }
+
+        .fullscreen-btn:active {
+            transform: scale(0.97);
+        }
+
         footer {
             text-align: center;
             padding: 25px 15px;
@@ -79,7 +100,21 @@
             font-size: 14px;
         }
 
-        /* Mobile screens */
+        /* Fullscreen mode */
+        .video-container:fullscreen {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            aspect-ratio: auto;
+            border-radius: 0;
+            background: #000;
+        }
+
+        .video-container:fullscreen iframe {
+            width: 100%;
+            height: 100%;
+        }
+
         @media (max-width: 600px) {
             main {
                 padding: 15px 8px;
@@ -104,6 +139,12 @@
                 border-radius: 5px;
             }
 
+            .fullscreen-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+
             footer {
                 font-size: 12px;
             }
@@ -123,14 +164,20 @@
 
             <p class="review">Flux</p>
 
-            <div class="video-container">
+            <div class="video-container" id="videoContainer">
+
                 <iframe
                     src="https://drive.google.com/file/d/1dBu4NtjJLXdq_9NQa82vyR0j8pN0yYhW/preview"
                     allow="autoplay; fullscreen"
                     allowfullscreen
                     loading="lazy">
                 </iframe>
+
             </div>
+
+            <button class="fullscreen-btn" onclick="openFullscreen()">
+                ⛶ Fullscreen
+            </button>
 
         </section>
 
@@ -139,6 +186,20 @@
     <footer>
         <p>&copy; 2026. All rights reserved.</p>
     </footer>
+
+    <script>
+        function openFullscreen() {
+            const video = document.getElementById("videoContainer");
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+    </script>
 
 </body>
 </html>
