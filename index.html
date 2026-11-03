@@ -24,92 +24,60 @@
 
         main {
             width: 100%;
-            max-width: 1250px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 20px 12px;
+            padding: 10px;
             text-align: center;
         }
 
         .course {
             background-color: #111;
             border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
+            border-radius: 10px;
+            padding: 15px;
             width: 100%;
         }
 
         .course h2 {
             font-size: clamp(21px, 4vw, 30px);
-            margin-top: 0;
+            margin: 5px 0 15px;
         }
 
         hr {
             border: none;
             border-top: 1px solid #444;
-            margin: 20px 0;
+            margin: 15px 0;
         }
 
         .review {
             font-size: 18px;
-            margin-bottom: 20px;
+            margin: 15px 0;
         }
 
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 1100px;
+            max-width: 1500px;
             margin: 0 auto;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 6px;
             background: #000;
         }
 
         .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        .fullscreen-btn {
-            margin-top: 15px;
-            padding: 13px 25px;
-            background-color: #fff;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .fullscreen-btn:hover {
-            background-color: #ccc;
-        }
-
-        .fullscreen-btn:active {
-            transform: scale(0.97);
-        }
-
-        .video-container:fullscreen {
-            width: 100%;
-            height: 100%;
-            max-width: none;
-            aspect-ratio: auto;
-            border-radius: 0;
-            background: #000;
-        }
-
-        .video-container:fullscreen iframe {
-            width: 100%;
-            height: 100%;
         }
 
         footer {
             text-align: center;
-            padding: 25px 15px;
-            margin-top: 30px;
+            padding: 20px 10px;
+            margin-top: 20px;
             border-top: 1px solid #333;
             color: #888;
             font-size: 14px;
@@ -117,16 +85,16 @@
 
         @media (max-width: 600px) {
             main {
-                padding: 15px 8px;
+                padding: 4px;
             }
 
             .course {
-                padding: 18px 8px;
-                border-radius: 9px;
+                padding: 10px 4px;
+                border-radius: 5px;
             }
 
             .course h2 {
-                font-size: 23px;
+                font-size: 22px;
             }
 
             .review {
@@ -136,13 +104,7 @@
             .video-container {
                 width: 100%;
                 aspect-ratio: 16 / 9;
-                border-radius: 5px;
-            }
-
-            .fullscreen-btn {
-                width: 100%;
-                padding: 14px;
-                font-size: 16px;
+                border-radius: 3px;
             }
 
             footer {
@@ -164,7 +126,7 @@
 
             <p class="review">Flux</p>
 
-            <div class="video-container" id="videoContainer">
+            <div class="video-container">
 
                 <iframe
                     src="https://drive.google.com/file/d/1dBu4NtjJLXdq_9NQa82vyR0j8pN0yYhW/preview"
@@ -177,10 +139,6 @@
 
             </div>
 
-            <button class="fullscreen-btn" onclick="openFullscreen()">
-                ⛶ Fullscreen
-            </button>
-
         </section>
 
     </main>
@@ -188,38 +146,6 @@
     <footer>
         <p>&copy; 2026. All rights reserved.</p>
     </footer>
-
-    <script>
-        function openFullscreen() {
-            const iframe = document.querySelector(".video-container iframe");
-
-            // iPhone and iPad Safari
-            if (typeof iframe.webkitEnterFullscreen === "function") {
-                iframe.webkitEnterFullscreen();
-                return;
-            }
-
-            // Android and desktop browsers
-            if (iframe.requestFullscreen) {
-                iframe.requestFullscreen().catch(() => {
-                    showFallback();
-                });
-                return;
-            }
-
-            // Older Safari
-            if (iframe.webkitRequestFullscreen) {
-                iframe.webkitRequestFullscreen();
-                return;
-            }
-
-            showFallback();
-        }
-
-        function showFallback() {
-            alert("Please use the fullscreen icon inside the video player.");
-        }
-    </script>
 
 </body>
 </html>
